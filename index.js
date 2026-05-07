@@ -36,10 +36,6 @@ const requestLogger = (request, response, next) => {
 
 //app.use(requestLogger)
 
-app.get('/', (request, response) => {
-    response.send('<h2>React and Node</h2>')
-})
-
 app.get('/api/notes', (request, response) => {
     response.json(notes)
 })
@@ -58,7 +54,7 @@ app.patch('/api/notes/:id', (request, response) => {
         return response.status(404).json({error: 'Note not found'})
     }
     const updatedNote = {...note, ...body}
-    notes.map(note => note.id == id ? updatedNote : note)
+    notes = notes.map(note => note.id == id ? updatedNote : note)
     response.json(updatedNote)
 })
 
