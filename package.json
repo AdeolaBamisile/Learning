@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "node --watch index.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "if exist dist rd /s /q dist && cd ..\\frontend && npm run build && xcopy dist ..\\backend\\dist /s /e /i /y",
+    "deploy:full": "npm run build:ui && git add . && git commit -m \"uibuild\" && git push"
   },
   "dependencies": {
     "cors": "^2.8.6",
