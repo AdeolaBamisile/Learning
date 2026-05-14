@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
-//lconst cors = require('cors')
+//const cors = require('cors')
 const app = express()
 
 let notes = [
@@ -26,6 +27,8 @@ app.use(express.json())
 app.use(express.static('dist'))
 app.use(morgan('tiny'))
 
+const Note = require('./models/notes')
+
 const requestLogger = (request, response, next) => {
     console.log('Method: ', request.method)
     console.log('Path: ', request.path)
@@ -37,7 +40,9 @@ const requestLogger = (request, response, next) => {
 //app.use(requestLogger)
 
 app.get('/api/notes', (request, response) => {
-    response.json(notes)
+    Note.find().then(notes => {
+        response.json(notes)
+    })
 })
 
 app.delete('/api/notes/:id', (request, response) => {
@@ -88,7 +93,7 @@ const unknownEndpoint = (request, response) => {
     response.status(404).send({error: 'unknown endpoint'})
 }
 
-let PORT = process.env.PORT || 3001
+let PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
