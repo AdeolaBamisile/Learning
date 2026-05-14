@@ -78,15 +78,14 @@ app.post('/api/notes', (request, response) => {
             error: 'content missing'
         })
     }
-    const note = {
+    const note = new Note ({
         content: body.content,
         important: body.important || false,
-        id: generateId()
-    }
-    notes = notes.concat(note)
-
-    console.log(note)
-    response.json(note)
+    })
+    
+    note.save().then(savednote => {
+        response.json(savednote)
+    })
 })
 
 const unknownEndpoint = (request, response) => {
