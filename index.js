@@ -25,7 +25,7 @@ app.get('/api/notes', (request, response) => {
     Note.find().then(notes => {
         response.json(notes)
     }).catch(error => {
-        response.status(400).json({error: "Couldn't fetch notes"})
+        response.status(400).json({ error: "Couldn't fetch notes" })
     })
 })
 
@@ -36,7 +36,7 @@ app.delete('/api/notes/:id', (request, response, next) => {
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
-    const {content, important} = request.body
+    const { content, important } = request.body
     Note.findById(request.params.id).then(note => {
         if (!note) {
             return response.status(404).end()
@@ -51,10 +51,10 @@ app.put('/api/notes/:id', (request, response, next) => {
 
 
 const generateId = () => {
-    const maxId = notes.length > 0 
-    ? Math.max(...notes.map(note => Number(note.id)))
-    : 0
-    return(String(maxId + 1))
+    const maxId = notes.length > 0
+        ? Math.max(...notes.map(note => Number(note.id)))
+        : 0
+    return (String(maxId + 1))
 }
 
 app.post('/api/notes', (request, response, next) => {
@@ -64,11 +64,11 @@ app.post('/api/notes', (request, response, next) => {
             error: 'content missing'
         })
     }
-    const note = new Note ({
+    const note = new Note({
         content: body.content,
         important: body.important || false,
     })
-    
+
     note.save().then(savednote => {
         response.json(savednote)
     }).catch(error => next(error))
@@ -89,7 +89,7 @@ app.get('/api/notes/:id', (request, response, next) => {
 })
 
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({error: 'unknown endpoint'})
+    response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
@@ -98,7 +98,7 @@ const errorHandler = (error, request, response, next) => {
     console.log(error.message)
 
     if (error.name == 'CastError') {
-        response.status(404).json({error: 'malformatted id'})
+        return response.status(404).json({ error: 'malformatted id' })
     }
     next(error)
 }
