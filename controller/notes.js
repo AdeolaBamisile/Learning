@@ -1,10 +1,10 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
 
-notesRouter.get('/', (request, response, next) => {
+notesRouter.get('/', (request, response) => {
     Note.find().then(notes => {
         response.json(notes)
-    }).catch(error => next(error))
+    }).catch(() => response.status(404).json({error: "Error: Unable to fetch notes"}))
 })
 
 notesRouter.get('/:id', (request, response, next) => {
