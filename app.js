@@ -1,3 +1,4 @@
+process.env.NODE_ENV !== 'production' && require("node:dns/promises").setServers(["8.8.8.8", "1.1.1.1"]);
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
@@ -11,9 +12,9 @@ const app = express()
 logger.info('connecting to ', config.MONGODB_URL)
 
 mongoose.connect(config.MONGODB_URL, { family: 4 }).then(result => {
-    logger.info('connected to MongoDB')
+  logger.info('connected to MongoDB')
 }).catch(error => {
-    logger.error('error connecting to MongoDB: ', error.message)
+  logger.error('error connecting to MongoDB:', error.message)
 })
 
 app.use(express.json())

@@ -5,7 +5,7 @@ mongoose.set('strictQuery', false)
 const noteSchema = new mongoose.Schema({
   content: {
     type: String,
-    minLength: 5,
+    minLength: 3,
     required: true
   },
   important: Boolean
