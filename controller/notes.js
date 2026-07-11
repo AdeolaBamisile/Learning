@@ -2,9 +2,9 @@ const notesRouter = require('express').Router()
 const Note = require('../models/note')
 
 notesRouter.get('/', (request, response) => {
-  Note.find().then(notes => {
+  Note.find({}).then(notes => {
     response.json(notes)
-  }).catch(() => response.status(404).json({error: 'Error: Unable to fetch notes'}))
+  }).catch(() => response.status(404).json({ error: 'Error: Unable to fetch notes' }))
 })
 
 notesRouter.get('/:id', (request, response, next) => {
@@ -20,7 +20,7 @@ notesRouter.get('/:id', (request, response, next) => {
 notesRouter.post('/', (request, response, next) => {
   const { content, important } = request.body
   if (!content) {
-    response.status(400).json({error: 'Missing content field'})
+    response.status(400).json({ error: 'Missing content field' })
   }
   const note = new Note({
     content: content,
@@ -32,7 +32,7 @@ notesRouter.post('/', (request, response, next) => {
 })
 
 notesRouter.delete('/:id', (request, response, next) => {
-  Note.findByIdAndDelete(request.params.id).then(result => {
+  Note.findByIdAndDelete(request.params.id).then(() => {
     response.status(204).end()
   }).catch(error => next(error))
 })

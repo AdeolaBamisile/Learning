@@ -17,3 +17,8 @@ test('reverse of adeola', () => {
   const result = reverse('adeola')
   assert.strictEqual(result, 'aloeda')
 })
+
+test('reverse for saas', () => {
+  const result = reverse('saas')
+  assert.strictEqual(result, 'saas')
+})
