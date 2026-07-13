@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+//require('node:dns/promises').setServers(['8.8.8.8', '1.1.1.1'])
 
 if (process.argv.length < 3) {
   console.log('give password as argument')
@@ -7,7 +8,7 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2]
 
-const url = `mongodb+srv://adeolabamisile:${password}@cluster0.lvxx5ri.mongodb.net/notesApp?appName=Cluster0`
+const url = `mongodb+srv://adeolabamisile:${password}@cluster0.lvxx5ri.mongodb.net/testNotesApp?appName=Cluster0`
 
 mongoose.set('strictQuery', false)
 
@@ -21,7 +22,7 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model('Note', noteSchema)
 
 const note = new Note({
-  content: 'POST and GET are the most important methods of HTTP protocol',
+  content: 'HTML is easy',
   important: true
 })
 
