@@ -1,6 +1,5 @@
 process.env.NODE_ENV !== 'production' && require('node:dns/promises').setServers(['8.8.8.8', '1.1.1.1'])
 const express = require('express')
-require('express-async-errors')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
