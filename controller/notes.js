@@ -39,6 +39,7 @@ notesRouter.post('/', userExtractor, async (request, response) => {
   const savedNote = await note.save()
   user.notes = user.notes.concat(savedNote._id)
   await user.save()
+  await savedNote.populate('user', {username: 1, name: 1})
   response.status(201).json(savedNote)
 })
 
@@ -56,6 +57,7 @@ notesRouter.put('/:id', async (request, response) => {
   note.content = content
   note.important = important
   const changedNote = await note.save()
+  await changedNote.populate('user', {username: 1, name: 1})
   response.json(changedNote)
 })
 
